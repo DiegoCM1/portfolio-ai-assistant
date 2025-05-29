@@ -5,11 +5,14 @@ from dotenv import load_dotenv
 import os
 from fastapi.middleware.cors import CORSMiddleware
 
+# ✅ Load environment variables
 load_dotenv()
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
+# ✅ Initialize FastAPI app
 app = FastAPI()
 
-# ✅ Allow frontend access from local + Vercel deploy
+# ✅ Allow frontend access from local + deployed portfolio
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -22,14 +25,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ Request body model
+# ✅ Define expected request schema
 class QuestionRequest(BaseModel):
     question: str
 
-# ✅ Load API key from .env
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-
-# ✅ POST endpoint
+# ✅ Define the /ask endpoint
 @app.post("/ask")
 async def ask_ai(request: QuestionRequest):
     headers = {
@@ -38,20 +38,19 @@ async def ask_ai(request: QuestionRequest):
     }
 
     body = {
-        "model": "meta-llama/llama-3.3-8b-instruct:free",  # or llama-4-scout
+        "model": "meta-llama/llama-3.3-8b-instruct:free",  # Swap here if using llama-4-scout
         "messages": [
             {
                 "role": "system",
                 "content": (
                     "You are a helpful and friendly AI assistant designed to answer questions about Diego, "
                     "a bilingual (Spanish-English) full-stack developer and AI builder from Mexico. "
-                    "Diego co-founded two startups: Verskod, focused on AI-integrated tools, and COMS, "
-                    "a workplace well-being platform. He won Meta’s Llama Impact Grant ($100K) with BluEye, "
-                    "a hurricane prevention app using Llama 3.2 and weather APIs. "
-                    "Diego actively builds projects like Castomized (AI learning), Alva (AI alarm), and MedAI (predictive health), "
-                    "and is currently shifting from front-end (React, Tailwind) to full-stack AI (Python, FastAPI). "
-                    "He’s disciplined, trains MMA 6 days/week, and applies structured planning like the 12 Week Year. "
-                    "Answer only questions about Diego’s skills, journey, habits, or projects."
+                    "Diego co-founded two startups: Verskod (AI-integrated tools) and COMS (well-being at work). "
+                    "He won Meta’s Llama Impact Grant ($100K) with BluEye, a hurricane prevention app using Llama 3.2 and weather APIs. "
+                    "Diego also created Castomized (AI learning), Alva (AI alarm), and MedAI (predictive health). "
+                    "He’s transitioning from front-end (React, Tailwind) to full-stack AI (Python, FastAPI), trains MMA 6 days/week, "
+                    "and applies structured planning (like the 12 Week Year). "
+                    "Only answer questions about Diego’s experience, habits, goals, or projects."
                 )
             },
             {"role": "user", "content": request.question}
@@ -68,12 +67,17 @@ async def ask_ai(request: QuestionRequest):
 
         result = response.json()
 
-        # ✅ Handle errors from OpenRouter
+        # ✅ Log raw result for debugging (comment out in prod if needed)
+        print("OpenRouter raw response:", result)
+
         if "choices" in result:
             ai_reply = result["choices"][0]["message"]["content"]
             return {"response": ai_reply}
         else:
-            raise HTTPException(status_code=500, detail=f"OpenRouter error: {result.get('error', 'Unknown')}")
+            raise HTTPException(
+                status_code=500,
+                detail=f"OpenRouter response missing 'choices': {result.get('error', result)}"
+            )
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
