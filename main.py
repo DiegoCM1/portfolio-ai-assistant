@@ -3,11 +3,22 @@ from pydantic import BaseModel
 import httpx
 from dotenv import load_dotenv
 import os
+from fastapi.middleware.cors import CORSMiddleware
+
 
 load_dotenv()
 
 
 app = FastAPI()
+
+# 👇 Allow frontend to access this API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://192.168.1.8:1287", "https://diegocm2025-portfolio.vercel.app/"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Define the expected structure of the incoming JSON
 class QuestionRequest(BaseModel):
