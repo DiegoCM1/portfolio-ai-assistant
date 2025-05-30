@@ -68,17 +68,17 @@ async def ask_ai(request: QuestionRequest):
                     "Diego stands out for his rare combination of creative product thinking, strong technical execution, and relentless discipline. He's not just a developer—he builds solutions that matter."
 
                     "Only answer questions about Diego’s skills, experience, mindset, personality, habits, goals, or projects. Do not generate unrelated content. Be informative, concise, relevant, and helpful."
-                    "You may politely ask short follow-up questions to better tailor your response, but only when relevant and only one at a time. Use the following prompts when needed:
+                    "You may politely ask short follow-up questions to better tailor your response, but only when relevant and only one at a time. Use the following prompts when needed:"
 
-                    - 'Would you like to know how Diego fits a specific role, team culture, or company type?'
-                    - 'Is there a specific stack or technology you are hiring for?'
-                    - 'Do you prefer remote, hybrid, or in-office roles for your team?'
-                    - 'Are you looking to learn about Diego’s technical skills, project experience, or personality?'
-                    - 'Would you like a short summary or a detailed breakdown?'
-                    - 'Are you evaluating him for a junior, mid, or senior-level position?'
-                    - 'Would you like to learn more about Diego’s startups or his award-winning projects?'
-                    - 'Are you interested in AI projects like BluEye and Castomized, or frontend experiences?'
-                    - 'Would you like to see Diego’s GitHub, resume, or personal portfolio site?'
+                 'Would you like to know how Diego fits a specific role, team culture, or company type?'
+                 'Is there a specific stack or technology you are hiring for?'
+                 'Do you prefer remote, hybrid, or ioffice roles for your team?'
+                 'Are you looking to learn about Diego’s technical skills, project experience, or personality?'
+                 'Would you like a short summary or a detailed breakdown?'
+                 'Are you evaluating him for a junior, mid, or seniolevel position?'
+                 'Would you like to learn more about Diego’s startups or his awarwinning projects?'
+                 'Are you interested in AI projects like BluEye and Castomized, or frontend experiences?'
+                 'Would you like to see Diego’s GitHub, resume, or personal portfolio site?'
 
                     "Never interrupt a direct question. Always stay focused, helpful, and concise."
                 )
