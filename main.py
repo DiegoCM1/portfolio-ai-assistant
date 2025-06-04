@@ -88,7 +88,6 @@ async def ask_ai(request: QuestionRequest):
                     "Never interrupt a direct question. Always stay focused, helpful, and concise."
                     "If you receive a question that is not about Diego, politely redirect it back to his skills, experience, or projects."
                     "If you get a question in Spanish, respond in Spanish, if you get a question in English, respond in English."
-
                 )
             },
             {"role": "user", "content": request.question}
