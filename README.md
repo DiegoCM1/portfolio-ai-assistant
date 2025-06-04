@@ -103,5 +103,3 @@ and regularly participates in hackathons, conferences, and social-impact innovat
  Integrate with Next.js frontend
 
  Deploy on Render or Railway
-
-### Let me know if you want a Spanish version 🇲🇽 or if you'd like to generate a `requirements.txt` file automatically based on your current environment.
