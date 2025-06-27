@@ -36,11 +36,13 @@ pip install fastapi uvicorn httpx python-dotenv
 
 ### ⚙️ Daily Usage
 
-- Activate virtual environment
+- Activate virtual environment:
 source venv/Scripts/activate
 
-- Run the FastAPI backend
+- Run the FastAPI backend:
 uvicorn main:app --reload
+
+- Tools:
 🧪 Test endpoint: http://127.0.0.1:8000/
 
 📘 Swagger UI: http://127.0.0.1:8000/docs
